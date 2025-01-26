@@ -4,9 +4,11 @@
 
 
 body {
-  background:linear-gradient(rgba(0,0,0,0.2) , rgba(0,0,0,0.2)),url("/cherry.jpg") !important; ;
-  background-size: cover !important;
-  background-position: center !important;
+  background:linear-gradient(rgba(0,0,0,0.2) , rgba(0,0,0,0.2)),url("/bg3.jpg")
+  
+  !important; ;
+  background-size:cover  !important;
+  /* background-position: center !important; */
   background-attachment: fixed !important;
   background-repeat: no-repeat !important;
 }
