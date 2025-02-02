@@ -2,13 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
-  background:linear-gradient(rgba(0,0,0,0.2) , rgba(0,0,0,0.2)),url("/bg3.jpg")
-  
-  !important; ;
-  background-size:cover  !important;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url("/bg3.jpg") !important;
+  background-size: cover !important;
   /* background-position: center !important; */
   background-attachment: fixed !important;
   background-repeat: no-repeat !important;
+
+}
+
+.message::-webkit-scrollbar {
+  width: 70px;
+}
+
+/* Track */
+.message::-webkit-scrollbar-track {
+  background:red; 
+}
+ 
+/* Handle */
+.message::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+.message::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }
