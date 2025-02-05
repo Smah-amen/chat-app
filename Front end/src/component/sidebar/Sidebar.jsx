@@ -2,7 +2,7 @@ import React from 'react'
 import SearchInput from './SearchInput'
 import Conversations from './Conversations'
 
-import LogoutButton from './logoutButton'
+import LogoutButton from './LogoutButton'
 
 
 
