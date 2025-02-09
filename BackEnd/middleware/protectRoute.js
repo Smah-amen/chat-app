@@ -13,7 +13,7 @@ const protectRoute = async (req, res, next) =>{
     }
     console.log("verified:", verified);
     
- req.user = verified.userId; // storing the user id in req.user for use in other routes
+ req.user = verified.userId; 
     
 // const user = await User.findById(verified._id).select("-password");
 const user = await User.findById(verified.userId).select("-password");
