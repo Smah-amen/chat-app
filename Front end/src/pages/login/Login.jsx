@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useLogin from "../../hooks/useLogin";
 
 const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const { loading, login } = useLogin();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await login(username, password);
+  };
   return (
     <div className="container mx-auto flex items-center justify-center h-screen">
       <div className=" flex flex-col items-center justify-center min-w-80  mx-auto">
@@ -10,7 +19,7 @@ const Login = () => {
             Login
             {/* <span className="text-blue-500">Chat app </span> */}
           </h1>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="">
               <label className="label p-2 ">
                 <span className="text-base label-text ">username</span>
@@ -19,6 +28,8 @@ const Login = () => {
                 className=" w-full h-10 input input-bordered"
                 type="text"
                 placeholder="Enter your username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div className="mt-4">
@@ -29,6 +40,8 @@ const Login = () => {
                 className=" w-full h-10 input input-bordered"
                 type="password"
                 placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div className="flex items-center justify-between mt-4">
@@ -43,7 +56,17 @@ const Login = () => {
               </a> */}
             </div>
             <div className="mt-4 flex items-center justify-center">
-              <button className=" btn hover:bg-blue-400  text-white btn-sm mt-2">Login</button>
+              <button
+                type="submit"
+                disabled={loading}
+                className=" btn hover:bg-blue-400  text-white btn-sm mt-2"
+              >
+                {loading ? (
+                  <span className="loading loading-spinner"></span>
+                ) : (
+                  "Login"
+                )}
+              </button>
             </div>
           </form>
         </div>
