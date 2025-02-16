@@ -10,11 +10,16 @@ const useSendMessage = () => {
   const sendMessage = async (message) => {
     setLoading(true);
     try {
-      const { data } = await axios.post(
-        `/api/messages/send/${selectedConversation._id}/messages`,
+      const data = await axios.post(
+        // `http://localhost:5000/api/massages/send/${selectedConversation._id}`,
+        `/api/massages/send/${selectedConversation._id}`,
         { message },
-        { headers: { "Content-Type": "application/json" } }
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
       );
+
       console.log("Message sent successfully:", data);
 
       if (data.error) {
@@ -23,7 +28,7 @@ const useSendMessage = () => {
 
       setMessages([...messages, data]);
     } catch (error) {
-      toast.error(error.response?.data?.error || error.message);
+      toast.error(error.response?.data?.error || toast.error(error));
     } finally {
       setLoading(false);
     }

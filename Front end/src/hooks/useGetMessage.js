@@ -8,42 +8,34 @@ const useGetMessage = () => {
   const { messages, setMessages, selectedConversation } = useConversation();
 
   useEffect(() => {
-    if (!selectedConversation?._id) return;  
+    if (!selectedConversation?._id) return;
 
     const getMessages = async () => {
       setLoading(true);
       try {
         console.log(selectedConversation._id);
-        
-        const res = await axios.get("/api/massages/677e98ad7fd163937178b81e")
-        // (`/api/massages/${selectedConversation._id}`);
+
+        const res = await axios.get(
+          `/api/massages/${selectedConversation._id}`
+        );
+
         console.log(res.data);
-        if(res.status==200) {
-          toast.success("Messages fetched successfully!");
-          console.log(res.data)
 
+        if (res.status === 200) {
+          toast.success("Massages fetched successfully!");
+          setMessages(res.data);
         }
-if(res.error) {
-  throw new Error(res.error);
- 
-}
+        console.log("Fetching messages for conversation ID:", selectedConversation._id);
 
-        setMessages(res); 
-        
       } catch (error) {
-        toast.error(error.messages);
+        toast.error(error.message);
       } finally {
         setLoading(false);
       }
     };
 
-    if (selectedConversation?._id) {
-      getMessages();
-    }
-    
-  }, [selectedConversation?._id, setMessages]); 
-
- 
+    getMessages();
+  }, [selectedConversation?._id, setMessages]);
 
   return { messages, loading };
 };

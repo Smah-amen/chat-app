@@ -6,12 +6,13 @@ import { TiMessages } from "react-icons/ti";
 import useConversation from "../../storeZustand/useConversation";
 
 const MessageContainer = () => {
-const {selectedConversation , setSelectedConversation} = useConversation()
+  const { selectedConversation, setSelectedConversation } = useConversation();
 
-useEffect(() =>{
-  return () => setSelectedConversation(null)
-}, [setSelectedConversation])
+  useEffect(() => {
+    return () => setSelectedConversation(null);
+  }, [setSelectedConversation]);
 
+  console.log(selectedConversation);
 
   return (
     <div className="md:min-w-[600px] flex flex-col">
@@ -19,9 +20,16 @@ useEffect(() =>{
         <NoChatSelected />
       ) : (
         <>
-          <div className=" bg-slate-500 px-4 py-2 mb-2">
-            <span className="label-text">to: </span>
-            <span className="text-gray-900">{selectedConversation.fullName} </span>
+          <div className=" bg-slate-500 px-4 py-2 mb-2 flex justify-normal gap-1">
+            <span className=" rounded-full">
+            <img 
+            className="w-9"
+            src={selectedConversation.profilePic}/>
+
+            </span>
+            <span className="text-gray-900">
+              {selectedConversation.fullName}{" "}
+            </span>
           </div>
           <Messages />
           <MessageInput />
@@ -41,7 +49,9 @@ const NoChatSelected = () => {
       items-center gap-2"
       >
         <p className="flex justify-between gap-2  text-3xl">
-        welcome<MdOutlineWavingHand size={30} className= "text-sky-600" />  samah amen ❄️
+          welcome
+          <MdOutlineWavingHand size={30} className="text-sky-600" /> samah amen
+          ❄️
         </p>
         <p> select a chat to start conversation</p>
         <TiMessages className="text-3xl md:text-6xl text-center" />

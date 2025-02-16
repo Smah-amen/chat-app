@@ -27,10 +27,7 @@ export const sendMessage = async (req, res) => {
       massage,
     });
 
-    // await newMassage.save();
-
     conversation.massages.push(newMassage._id);
-    // await conversation.save();
     await Promise.all([conversation.save(), newMassage.save()]);
 
     res.status(201).json({ message: "Message sent successfully", newMassage });
@@ -42,18 +39,26 @@ export const sendMessage = async (req, res) => {
 
 export const getMassages = async (req, res) => {
   try {
-    const { id: userToChatId } = req.params;
+    const userToChatId = req.params.id;
     const senderId = req.user.id;
-    
+    console.log("Sender ID:", senderId);
+    console.log("User to Chat ID:", userToChatId);
+
+    //  const conversation = await Conversation.find().populate("massages");
+    //  console.log(conversations);
+
     const conversation = await Conversation.findOne({
       participants: { $all: [senderId, userToChatId] },
     }).populate("massages");
+    console.log(conversation);
+
+    if (conversation) {
+      res.status(201).json(conversation.massages);
+    }
 
     if (!conversation) {
       return res.status(200).json([]);
     }
-
-    res.status(201).json(conversation.massages);
   } catch (error) {
     console.error("Error in getMassages:", error);
     res.status(500).json({ message: "Something went wrong" });
