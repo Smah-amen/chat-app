@@ -1,14 +1,15 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import { useAuthContext } from "../../Context/AuthContext";
 import useConversation from "../../storeZustand/useConversation";
 
 const Message = ({ message }) => {
+  // console.log('message', message);
   const { authUser } = useAuthContext();
   const { selectedConversation } = useConversation();
   const fromMe = message.senderId === authUser._id;
   const chatClassName = fromMe ? "chat-end" : "chat-start ";
-  profilePic = fromMe ? authUser.profilePic : selectedConversation?.profilePic;
-  bgClor = fromMe ? "bg-sky-300" : "";
+  const profilePic = fromMe? authUser.profilePic : selectedConversation?.profilePic;
+  const bgColor = fromMe? "bg-sky-300" : "";
 
   return (
     <div className={`chat ${chatClassName}`}>
@@ -18,8 +19,8 @@ const Message = ({ message }) => {
         </div>
       </div>
 
-      <div className={`chat-bubble text-white bg-blue-500 ${bgClor}`}>
-        {message.Message}
+      <div className={`chat-bubble text-dart bg-blue-700 ${bgColor}`}>
+        {message.massage}
       </div>
 
       <div className="chat-time">
