@@ -9,11 +9,11 @@ import massageRoutes from "./routes/massageRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 
 import connectMongoDB from "./db/conectMongoDB.js";
+dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 
-dotenv.config();
 
 app.use(express.json());
 
