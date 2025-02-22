@@ -16,17 +16,18 @@ const useGetMessage = () => {
         console.log(selectedConversation._id);
 
         const res = await axios.get(
-          `/api/massages/${selectedConversation._id}`
+          ` /api/massages/${selectedConversation._id}`
         );
-
-        console.log(res.data);
+        console.log("Response from API:", res);
 
         if (res.status === 200) {
           toast.success("Massages fetched successfully!");
           setMessages(res.data);
         }
-        console.log("Fetching messages for conversation ID:", selectedConversation._id);
-
+        console.log(
+          "Fetching messages for conversation ID:",
+          selectedConversation._id
+        );
       } catch (error) {
         toast.error(error.message);
       } finally {

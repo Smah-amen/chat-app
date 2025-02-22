@@ -7,13 +7,13 @@ const useSendMessage = () => {
   const [loading, setLoading] = useState(false);
   const { messages, setMessages, selectedConversation } = useConversation();
 
-  const sendMessage = async (message) => {
+  const sendMessage = async (massage) => {
     setLoading(true);
     try {
       const data = await axios.post(
         // `http://localhost:5000/api/massages/send/${selectedConversation._id}`,
         `/api/massages/send/${selectedConversation._id}`,
-        { message },
+        { massage },
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
