@@ -16,7 +16,7 @@ const useGetMessage = () => {
         console.log(selectedConversation._id);
 
         const res = await axios.get(
-          ` /api/massages/${selectedConversation._id}`
+          `/api/massages/${selectedConversation._id}`
         );
         console.log("Response from API:", res);
 

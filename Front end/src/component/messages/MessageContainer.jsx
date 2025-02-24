@@ -12,7 +12,6 @@ const MessageContainer = () => {
     return () => setSelectedConversation(null);
   }, [setSelectedConversation]);
 
-  console.log(selectedConversation);
 
   return (
     <div className="md:min-w-[600px] flex flex-col">
