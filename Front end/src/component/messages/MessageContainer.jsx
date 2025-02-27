@@ -4,6 +4,7 @@ import MessageInput from "./MessageInput";
 import { MdOutlineWavingHand } from "react-icons/md";
 import { TiMessages } from "react-icons/ti";
 import useConversation from "../../storeZustand/useConversation";
+import { useAuthContext } from "../../Context/AuthContext";
 
 const MessageContainer = () => {
   const { selectedConversation, setSelectedConversation } = useConversation();
@@ -41,6 +42,8 @@ const MessageContainer = () => {
 export default MessageContainer;
 
 const NoChatSelected = () => {
+    const { authUser } = useAuthContext();
+    
   return (
     <div className="flex items-center justify-center w-full h-full">
       <div
@@ -49,7 +52,8 @@ const NoChatSelected = () => {
       >
         <p className="flex justify-between gap-2  text-3xl">
           welcome
-          <MdOutlineWavingHand size={30} className="text-sky-600" /> samah amen
+          <MdOutlineWavingHand size={30} className="text-sky-600" /> 
+          {authUser.data.fullname}  
           ❄️
         </p>
         <p> select a chat to start conversation</p>

@@ -6,13 +6,14 @@ import axios from "axios";
 const useSendMessage = () => {
   const [loading, setLoading] = useState(false);
   const { messages, setMessages, selectedConversation } = useConversation();
+  console.log(selectedConversation._id);
+  
 
   const sendMessage = async (massage) => {
     setLoading(true);
     try {
-      const data = await axios.post(
-        // `http://localhost:5000/api/massages/send/${selectedConversation._id}`,
-        `/api/massages/send/${selectedConversation._id}`,
+      const response = await axios.post(
+       `/api/massages/send/${selectedConversation._id}`,
         { massage },
         {
           headers: { "Content-Type": "application/json" },
@@ -20,15 +21,17 @@ const useSendMessage = () => {
         }
       );
 
-      console.log("Message sent successfully:", data);
+      const data = response.data; 
+      console.log(data);
+      
 
-      if (data.error) {
-        throw new Error(data.error);
+      if (!data || data.error) {
+        throw new Error(data?.error || "Failed to send message");
       }
 
-      setMessages([...messages, data]);
+      setMessages([... messages, data]);
     } catch (error) {
-      toast.error(error.response?.data?.error || toast.error(error));
+      toast.error(error.response?.data?.error || "An error occurred while sending the message");
     } finally {
       setLoading(false);
     }
