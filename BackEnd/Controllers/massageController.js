@@ -1,5 +1,6 @@
 import Conversation from "../models/conversationModel.js";
 import Massage from "../models/massageModel.js";
+import { getReceiverSocketId } from "../socket/socket.js";
 
 export const sendMessage = async (req, res) => {
   try {
@@ -29,6 +30,19 @@ export const sendMessage = async (req, res) => {
 
     conversation.massages.push(newMassage._id);
     await Promise.all([conversation.save(), newMassage.save()]);
+
+const receiverSocketId = getReceiverSocketId(receiverId);
+
+if (receiverSocketId) {
+  io.to(receiverSocketId).emit("newMessage", newMassage);
+}
+
+
+
+
+
+
+
 
     res.status(201).json({ message: "Message sent successfully", newMassage });
   } catch (error) {
