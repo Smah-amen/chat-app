@@ -1,43 +1,33 @@
 import { useState } from "react";
 import useConversation from "../storeZustand/useConversation";
+
 import toast from "react-hot-toast";
-import axios from "axios";
 
 const useSendMessage = () => {
-  const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(false);
   const { messages, setMessages, selectedConversation } = useConversation();
-  console.log(selectedConversation._id);
-  
 
-  const sendMessage = async (massage) => {
-    setLoading(true);
-    try {
-      const response = await axios.post(
-       `/api/massages/send/${selectedConversation._id}`,
-        { massage },
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
+	const sendMessage = async (massage) => {
+		setLoading(true);
+		try {
+			const res = await fetch(`/api/massages/send/${selectedConversation._id}`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ massage }),
+			});
+			const data = await res.json();
+			if (data.error) throw new Error(data.error);
 
-      const data = response.data; 
-      console.log(data);
-      
+			setMessages([...messages, data]);
+		} catch (error) {
+			toast.error(error.message);
+		} finally {
+			setLoading(false);
+		}
+	};
 
-      if (!data || data.error) {
-        throw new Error(data?.error || "Failed to send message");
-      }
-
-      setMessages([... messages, data]);
-    } catch (error) {
-      toast.error(error.response?.data?.error || "An error occurred while sending the message");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return { sendMessage, loading };
+	return { sendMessage, loading };
 };
-
 export default useSendMessage;

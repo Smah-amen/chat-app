@@ -1,40 +1,32 @@
-/* eslint-disable react/prop-types */
 import { useAuthContext } from "../../Context/AuthContext";
 import useConversation from "../../storeZustand/useConversation";
 import { extractTime } from "../../utils/extractTime";
+// import useConversation from "../storeZustand/useConversation";
 
 const Message = ({ message }) => {
-  console.log("message", message);
+	const { authUser } = useAuthContext();
+	console.log(authUser.data);
+	console.log(message);
+	
+	
+	const { selectedConversation } = useConversation();
+	const fromMe = message.senderId === authUser?.data._id;
+	const formattedTime = extractTime(message?.createdAt);
+	const chatClassName = fromMe ? "chat-end" : "chat-start";
+	const profilePic = fromMe ? authUser.data.profilePic : selectedConversation?.profilePic;
+	const bubbleBgColor = fromMe ? "bg-blue-500" : "";
+	const shakeClass = message.shouldShake ? "shake" : "";
 
-  const { authUser } = useAuthContext();
-  const { selectedConversation } = useConversation();
-  const fromMe = message?.senderId === authUser.data._id;
-  const chatClassName = fromMe ? "chat-end" : "chat-start ";
-  const formatTime = extractTime(message.createdAt);
-  const profilePic = fromMe
-    ? authUser.data.profilePic
-    : selectedConversation?.profilePic;
-  const bgColor = fromMe ? "bg-blue-900" : "bg-green-900";
-  const shackeClass = message.shouldShacke ? "shacke" : "";
-
-  console.log(fromMe);
-  return (
-    <div className={`chat ${chatClassName}`}>
-      <div className="chat-image avatar">
-        <div className="w-10 rounded-full">
-          <img src={profilePic} alt="" />
-        </div>
-      </div>
-
-      <div className={`chat-bubble text-white pb-2  ${bgColor}  ${shackeClass}`}>
-        {message?.massage}
-      </div>
-
-      <div className="chat-time opacity-50 text-sm flex gap-1 items-center">
-        <span>{formatTime} </span>
-      </div>
-    </div>
-  );
+	return (
+		<div className={`chat ${chatClassName}`}>
+			<div className='chat-image avatar'>
+				<div className='w-10 rounded-full'>
+					<img alt='' src={profilePic} />
+				</div>
+			</div>
+			<div className={`chat-bubble text-white ${bubbleBgColor} ${shakeClass} pb-2`}>{message?.massage}</div>
+			<div className='chat-footer opacity-50 text-xs flex gap-1 items-center'>{formattedTime}</div>
+		</div>
+	);
 };
-
 export default Message;

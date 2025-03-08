@@ -1,17 +1,18 @@
 import Conversation from "../models/conversationModel.js";
 import Massage from "../models/massageModel.js";
-import { getReceiverSocketId } from "../socket/socket.js";
+import { getReceiverSocketId, io } from "../socket/socket.js";
 
 export const sendMessage = async (req, res) => {
   try {
-    console.log("User:", req.user.data);
-
+    
     const { massage } = req.body;
     const { id: receiverId } = req.params;
-
+    const senderId = req.user._id;
+    console.log(req.user)
+    
     console.log("receiverId:", receiverId);
-    const senderId = req.user.id;
-
+    console.log("User:",senderId );
+    
     let conversation = await Conversation.findOne({
       participants: { $all: [senderId, receiverId] },
     });
@@ -28,7 +29,9 @@ export const sendMessage = async (req, res) => {
       massage,
     });
 
-    conversation.massages.push(newMassage._id);
+    if(newMassage){
+      conversation.massages.push(newMassage._id);
+    }
     await Promise.all([conversation.save(), newMassage.save()]);
 
 const receiverSocketId = getReceiverSocketId(receiverId);
@@ -37,14 +40,7 @@ if (receiverSocketId) {
   io.to(receiverSocketId).emit("newMessage", newMassage);
 }
 
-
-
-
-
-
-
-
-    res.status(201).json({ message: "Message sent successfully", newMassage });
+    res.status(201).json(newMassage);
   } catch (error) {
     // console.error("Error in sendMessage:", error);
     res.status(500).json({ message: "Something went wrong" });
@@ -54,7 +50,7 @@ if (receiverSocketId) {
 export const getMassages = async (req, res) => {
   try {
     const userToChatId = req.params.id;
-    const senderId = req.user.id;
+    const senderId = req.user._id;
     
     console.log("Sender ID:", senderId);
     console.log("User to Chat ID:", userToChatId);

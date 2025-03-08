@@ -12,6 +12,8 @@ const protectRoute = async (req, res, next) => {
         console.log("Verified:", verified);
 
         const user = await User.findById(verified.userId).select("-password");
+        console.log(verified.userId);
+        
 
         if (!user) {
             return res.status(404).json({ error: "No user found" });
