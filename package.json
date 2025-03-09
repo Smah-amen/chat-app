@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon backEnd/server.js"
+    "server": "nodemon backEnd/server.js",
+    "start" :"node backEnd/server.js",
+    "build": "npm install && npm install --prefix \"Front end\" && npm run build --prefix \"Front end\""
+
+
   },
   "type": "module",
   "keywords": [],
+  
   "author": "",
   "license": "ISC",
   "description": "",

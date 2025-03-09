@@ -5,7 +5,7 @@ import { extractTime } from "../../utils/extractTime";
 
 const Message = ({ message }) => {
 	const { authUser } = useAuthContext();
-	console.log(authUser.data);
+	// console.log(authUser.data);
 	console.log(message);
 	
 	
