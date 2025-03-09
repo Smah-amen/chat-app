@@ -9,7 +9,7 @@ import connectMongoDB from "./db/conectMongoDB.js";
 import { app, server } from "./socket/socket.js";
 
 
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 5002;
 const __dirname = path.resolve()
 
 dotenv.config();
