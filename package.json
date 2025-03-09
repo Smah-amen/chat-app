@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "server": "nodemon backEnd/server.js",
-    "start" :"node backEnd/server.js",
+    "server": "nodemon BackEnd/server.js",
+    "start" :"node BackEnd/server.js",
     "build": "npm install && npm install --prefix \"Front end\" && npm run build --prefix \"Front end\""
 
 
