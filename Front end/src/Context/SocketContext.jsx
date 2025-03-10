@@ -6,7 +6,6 @@ export const SocketContext = createContext();
 
 export const useSocketContext = () => {
     return useContext(SocketContext);
- 
 }
 
 export const SocketContextProvider = ({ children }) => {
@@ -16,7 +15,7 @@ export const SocketContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (authUser) {
-      const socket = io("http://localhost:5001", {
+      const socket = io("https://chat-app-production-61a9.up.railway.app", { 
         query:{
             userId: authUser.data._id
         }
@@ -25,7 +24,7 @@ export const SocketContextProvider = ({ children }) => {
 
       socket.on("getOnlineUser", (users)=>{
         setOnlineUser(users);
-      })
+      });
 
       return () => socket.close();
     } else {
@@ -36,5 +35,5 @@ export const SocketContextProvider = ({ children }) => {
     }
   }, [authUser]);
 
-  return <SocketContext.Provider value={{socket,onlineUser}}>{children}</SocketContext.Provider>;
+  return <SocketContext.Provider value={{socket, onlineUser}}>{children}</SocketContext.Provider>;
 };
