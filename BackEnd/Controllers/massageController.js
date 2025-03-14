@@ -46,6 +46,7 @@ if (receiverSocketId) {
     res.status(500).json({ message: "Something went wrong" });
   }
 };
+
 export const getMassages = async (req, res) => {
   try {
     const userToChatId = req.params.id;
@@ -61,24 +62,12 @@ export const getMassages = async (req, res) => {
     console.log("Conversation:", conversation);
 
     if (conversation) {
-   
-      const lastMessage = conversation.massages.length > 0 
-        ? conversation.massages[conversation.massages.length - 1].text 
-        : "";
-
-      return res.status(200).json({ 
-        massages: conversation.massages, 
-        lastMessage 
-      });
+      return res.status(200).json(conversation.massages); 
     } else {
-      return res.status(200).json({ 
-        massages: [], 
-        lastMessage: "" 
-      });
+      return res.status(200).json([]);
     }
   } catch (error) {
     console.error("Error in getMassages:", error);
     return res.status(500).json({ message: error.message });
   }
 };
-
