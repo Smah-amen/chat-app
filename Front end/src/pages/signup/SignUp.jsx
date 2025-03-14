@@ -12,7 +12,7 @@ const SignUp = () => {
     gender: "",
   });
 
-  const { loading, signup } = UseSignup();
+  const { loading, signup } = UseSignup(); //custom hook for api calls
 
   const handleGenderCheckbox = (gender) => {
     setInputs({ ...inputs, gender });

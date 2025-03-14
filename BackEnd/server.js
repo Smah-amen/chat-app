@@ -2,7 +2,7 @@ import path from "path";
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import cors from "cors";  // ✅ استيراد مكتبة CORS
+import cors from "cors";  
 
 import authRoutes from "./routes/authRoutes.js";
 import massageRoutes from "./routes/massageRoutes.js";

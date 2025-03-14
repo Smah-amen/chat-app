@@ -1,11 +1,11 @@
 import React, { useMemo } from "react";
 import Conversation from "./Conversation";
 import useGetConversation from "../../hooks/useGetConversation";
-import { getRandomEmoji } from "../../utils/emojis";
+// import { getRandomEmoji } from "../../utils/emojis";
 
 const Conversations = () => {
   const { loading, conversations } = useGetConversation();
-  // console.log("conversations", conversations);
+  console.log("conversations", conversations);
 
   return (
     <div className="py-2 flex flex-col  min-w-[450px] overflow-auto">
@@ -14,7 +14,7 @@ const Conversations = () => {
           <Conversation
             key={conversation._id}
             conversation={conversation}
-            emoji={getRandomEmoji()}
+            // emoji={getRandomEmoji()}
             lastIndx={Indx === conversations.length - 1}
           />
         ))
