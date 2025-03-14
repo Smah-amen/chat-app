@@ -23,6 +23,7 @@ const Conversation = ({ conversation, emoji, lastIndx }) => {
         <div className="flex flex-col flex-1">
           <div className="flex gap-3 justify-between">
             <p className="text-sm font-medium">{conversation.fullName} </p>
+            <p className="text-xs text-gray-400 truncate">{conversation.lastMessage}</p>
             {/* <p className="text-lg text-gray-400">{emoji} </p> */}
           </div>
         </div>
